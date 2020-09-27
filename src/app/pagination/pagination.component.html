@@ -1,0 +1,49 @@
+    <div class="d-flex justify-content-between p-2 align-items-end pagination-container">
+
+        <div class="d-flex align-items-center mb-1">
+            <small><strong>Show</strong></small>
+            <select class="form-control form-control-sm cursor-pointer page-option mx-2 border-0"
+                (change)="onPageSizeChanged($event)">
+                <option value="25">25</option>
+                <option value="50" *ngIf="totalRecords >= 50">50</option>
+                <option value="75" *ngIf="totalRecords >= 75">75</option>
+                <option value="100" *ngIf="totalRecords >= 100">100</option>
+            </select>
+            <small><strong>entries</strong></small>
+        </div>
+
+        <small class="my-auto"><strong>Total: {{totalRecords}} (Showing
+                {{pageSize}})</strong></small>
+
+        <div class="d-flex align-items-end" *ngIf="totalRecords">
+            <small class="text-nowrap my-auto"><strong>{{getStartIndex()}} - {{getEndIndex()}} of
+                    {{totalRecords}}</strong></small>
+            <div class="ml-2 pagination-icons d-flex">
+
+                <button class="btn btn-outline" [title]="getStartIndex() !== 1 ? 'First page' : ''"
+                    [ngClass]="{'cursor-pointer btn-outline-active': getStartIndex() !== 1}"
+                    (click)="navigateToFirstPage()">First
+                </button>
+
+                <button class="btn btn-outline mx-1"
+                    [ngClass]="{'cursor-pointer btn-outline-active': getStartIndex() !== 1}"
+                    (click)="onPageNoDecreased(pageNo - 1)">
+                    <span [title]="getStartIndex() !== 1 ? 'Previous page' : ''">Previous</span>
+                </button>
+
+                <input type="number" class="form-control form-control-sm text-center border-0" min="1"
+                    [max]="lastPageNo" [(ngModel)]="pageIndex" (keyup)="onPageNoEntered()" style="width: 60px;">
+
+                <button class="btn btn-outline mx-1"
+                    [ngClass]="{'cursor-pointer btn-outline-active': getEndIndex() !== totalRecords}"
+                    (click)=" onPageNoIncreased(pageNo + 1)">
+                    <span [title]="getEndIndex() !== totalRecords ? 'Next page': ''">Next</span>
+                </button>
+
+                <button class="btn btn-outline" [title]="getEndIndex() !== totalRecords ? 'Last Page' : ''"
+                    [ngClass]="{'cursor-pointer btn-outline-active': getEndIndex() !== totalRecords}"
+                    (click)="navigateToLastPage()">Last
+                </button>
+            </div>
+        </div>
+    </div>
