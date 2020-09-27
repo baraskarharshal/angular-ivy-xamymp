@@ -1,0 +1,11 @@
+
+<div class="d-flex flex-column justify-content-between">
+  <div id="recordsContainer" class="d-flex flex-wrap" style="height:80vh; overflow:scroll">
+    <ol>
+      <li *ngFor="let item of records">
+        <div class="d-flex">{{item.code + ': ' + item.name}}</div>
+      </li>
+    </ol>
+  </div>
+  <app-pagination [totalRecords]="totalRecordCount" (paginationState)="onChangePagination($event)"></app-pagination>
+</div>
